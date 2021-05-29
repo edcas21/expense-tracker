@@ -7,12 +7,26 @@ import {
   Grid,
   Divider,
 } from "@material-ui/core";
-import classes from "*.module.css";
+
+import useStyles from "./styles";
 
 function Main() {
+  const classes = useStyles();
+
   return (
     <Card className={classes.root}>
       <CardHeader title="Expense Tracker" subheader="Powered by Speechly" />
+      <CardContent>
+        <Typography align="center" variant="h5">
+          Total Balance $100
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          style={{ lineHeight: "1.5em", marginTop: "20px" }}
+        >
+          {/* InfoCard */}
+        </Typography>
+      </CardContent>
     </Card>
   );
 }
