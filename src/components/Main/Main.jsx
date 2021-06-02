@@ -9,12 +9,14 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./Main.styles";
+import Form from "./Form/Form";
+import List from "./List/List";
 
 const Main = () => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.container}>
       <CardHeader title="Expense Tracker" subheader="Powered by Speechly" />
       <Typography align="center" variant="h5">
         Total Balance $100
@@ -26,11 +28,12 @@ const Main = () => {
         Try saying: Add income for $100 in Category Salary for Monday...
         {/*<InfoCard />*/}
       </Typography>
-      <Divider />
-      <CardContent>
-        <Grid container spacing={12}>
+      <Divider className={classes.divider} />
+      <Form />
+      <CardContent className={classes.carContent}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
-            {/*<List />*/}
+            <List />
           </Grid>
         </Grid>
       </CardContent>
