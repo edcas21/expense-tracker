@@ -17,7 +17,27 @@ const List = () => {
   const classes = useStyles();
 
   const transactions = [
-    { id: 1, type: "Income", category: "Salary", amount: 50, date: new Date() },
+    {
+      id: 1,
+      type: "Income",
+      category: "Salary",
+      amount: 50,
+      date: "Wed Dec 16",
+    },
+    {
+      id: 2,
+      type: "Expense",
+      category: "Business",
+      amount: 100,
+      date: "Wed Dec 17",
+    },
+    {
+      id: 3,
+      type: "Income",
+      category: "Salary",
+      amount: 200,
+      date: "Wed Dec 18",
+    },
   ];
 
   return (
