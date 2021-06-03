@@ -18,12 +18,13 @@ import {
   incomeCategories,
   expenseCategories,
 } from "../../../constants/categories";
+import formatDate from "../../../utils/formatDate";
 
 const initialState = {
   amount: "",
   category: "",
   type: "Income",
-  date: new Date(),
+  date: formatDate(new Date()),
 };
 
 const Form = () => {
@@ -97,7 +98,7 @@ const Form = () => {
           fullWidth
           value={formData.date}
           onChange={(e) => {
-            setFormData({ ...formData, date: e.target.value });
+            setFormData({ ...formData, date: formatDate(e.target.value) });
           }}
         />
       </Grid>
