@@ -4,7 +4,6 @@ import { ExpenseTrackerContext } from "./context/context";
 import {
   incomeCategories,
   expenseCategories,
-  reseteCategories,
   resetCategories,
 } from "./constants/categories";
 

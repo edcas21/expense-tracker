@@ -36,14 +36,16 @@ const Form = () => {
     formData.type === "Income" ? incomeCategories : expenseCategories;
 
   const createTransaction = () => {
-    const transaction = {
-      ...formData,
-      amount: Number(formData.amount),
-      id: uuidv4(),
-    };
+    if (formData.amount > 0 && formData.category !== "") {
+      const transaction = {
+        ...formData,
+        amount: Number(formData.amount),
+        id: uuidv4(),
+      };
 
-    addTransaction(transaction);
-    setFormData(initialState);
+      addTransaction(transaction);
+      setFormData(initialState);
+    }
   };
 
   return (

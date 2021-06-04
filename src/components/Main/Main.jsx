@@ -30,7 +30,7 @@ const Main = () => {
       </Typography>
       <Divider className={classes.divider} />
       <Form />
-      <CardContent className={classes.carContent}>
+      <CardContent className={classes.cardContent}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <List />
