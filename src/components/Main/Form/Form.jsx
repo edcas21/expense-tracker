@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   TextField,
   Typography,
@@ -38,6 +38,8 @@ const Form = () => {
     formData.type === "Income" ? incomeCategories : expenseCategories;
 
   const createTransaction = () => {
+    if (Number.isNaN(Number(formData.amount)) || !formData.date.includes("-"))
+      return;
     if (formData.amount > 0 && formData.category !== "") {
       const transaction = {
         ...formData,
@@ -49,6 +51,62 @@ const Form = () => {
       setFormData(initialState);
     }
   };
+
+  useEffect(() => {
+    if (segment) {
+      if (segment.intent.intent === "add_expense") {
+        setFormData({ ...formData, type: "Expense" });
+      } else if (segment.intent.intent === "add_income") {
+        setFormData({ ...formData, type: "Income" });
+      } else if (
+        segment.isFinal &&
+        segment.intent.intent === "create_transaction"
+      ) {
+        return createTransaction();
+      } else if (
+        segment.isFinal &&
+        segment.intent.intent === "cancel_transaction"
+      ) {
+        return setFormData(initialState);
+      }
+
+      segment.entities.forEach((s) => {
+        const category = `${s.value.charAt(0)}${s.value
+          .slice(1)
+          .toLowerCase()}`;
+
+        switch (s.type) {
+          case "amount":
+            setFormData({ ...formData, amount: s.value });
+            break;
+          case "category":
+            if (incomeCategories.map((iC) => iC.type).includes(category)) {
+              setFormData({ ...formData, type: "Income", category });
+            } else if (
+              expenseCategories.map((iC) => iC.type).includes(category)
+            ) {
+              setFormData({ ...formData, type: "Expense", category });
+            }
+            break;
+          case "date":
+            setFormData({ ...formData, date: s.value });
+            break;
+          default:
+            break;
+        }
+      });
+
+      if (
+        segment.isFinal &&
+        formData.amount &&
+        formData.category &&
+        formData.type &&
+        formData.date
+      ) {
+        createTransaction();
+      }
+    }
+  }, [segment]);
 
   return (
     <Grid container spacing={2}>
